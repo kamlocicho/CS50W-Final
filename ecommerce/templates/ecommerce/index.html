@@ -1,0 +1,33 @@
+{% extends 'ecommerce/layout.html' %}
+
+{% block title %}
+E-commerce
+{% endblock %}
+
+{% block content %}
+<h1>Products</h1>
+<hr>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-12 col-lg-4 mb-4">
+        <div class="card">
+            <img src="{{product.image.url}}" class="card-img-top" alt="{{product.title}}" height="300px" />
+            <div class="card-body">
+                <p class="small"><a href="{% url 'index' %}?category={{product.category}}"
+                        class="text-muted">{{product.category}}</a></p>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <a class="mb-0 h5" href="{% url 'product' product.id %}">{{product.title}}</a>
+                    <h5 class="text-dark mb-0">${{product.price}}</h5>
+                </div>
+
+                <a class="btn btn-outline-success" href="{% url 'product' product.id %}">Go check</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h4>No products here. </h1>
+        {% endfor %}
+</div>
+{% endblock %}

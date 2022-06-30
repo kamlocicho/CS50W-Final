@@ -1,0 +1,26 @@
+{% extends "ecommerce/layout.html" %}
+
+{% block content %}
+
+<form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Username: </label>
+        <input class="form-control" type="text" name="username" id="username">
+    </div>
+    <div class="form-group">
+        <label for="email">Email: </label>
+        <input class="form-control" type="email" name="email" id="email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password: </label>
+        <input class="form-control" type="password" name="password" id="password">
+    </div>
+    <div class="form-group">
+        <label for="confirmation">Confirm password: </label>
+        <input class="form-control" type="password" name="confirmation" id="confirmation">
+    </div>
+    <input type="submit" class="mt-2 btn btn-primary" value="Create">
+</form>
+
+{% endblock %}

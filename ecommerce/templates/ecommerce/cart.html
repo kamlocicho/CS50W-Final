@@ -1,0 +1,43 @@
+{% extends 'ecommerce/layout.html' %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block content %}
+<h1>Cart</h1>
+
+<div class="card mb-3">
+    <h5 class="card-title">Total: {{request.user.total}}</h5>
+</div>
+
+{% for cartItem in request.user.cart.all %}
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{cartItem.product.image.url}}" class="img-fluid rounded-start" alt="{{cartItem.product.title}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{cartItem.product.title}}</h5>
+                <p class="card-text">amount: {{cartItem.quantity}}</p>
+                <a class="btn btn-outline-success" href="{% url 'product' cartItem.product.id %}">Go check</a>
+                <button class="btn btn-danger" onclick="removeItemFromCart()">Remove from
+                    cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function removeItemFromCart() {
+        fetch(`{% url 'remove_from_cart' cartItem.id %}`, {
+            method: 'PUT'
+        }).then(() => {
+            document.location.reload()
+        })
+    }
+</script>
+{% empty %}
+<h1>Your cart is empty</h1>
+{% endfor %}
+{% endblock %}

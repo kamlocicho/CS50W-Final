@@ -1,0 +1,55 @@
+{% extends 'ecommerce/layout.html' %}
+
+{% block title %}
+{{product.title}}
+{% endblock %}
+
+{% block content %}
+<h2 class="mt-2">{{product.title}}</h2>
+<hr>
+
+<div class="row">
+    <img src="{{product.image.url}}" alt="{{product.title}}" class="col-md-8 col-sm-12 img-fluid" />
+    <ul class="col-md-4 col-sm-12">
+        <li>${{product.price}}</li>
+        <li><a href="{% url 'index' %}?category={{product.category}}">{{product.category}}</a></li>
+        <li>{{product.description}}</li>
+
+        {% if request.user.is_authenticated %}
+        <div class="mt-2">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" value="1">
+        </div>
+        <button class="btn btn-primary" onclick="addToCart('{{product.id}}')">Add to cart</button>
+        {% if product in request.user.watchlist.all %}
+        <button class="btn btn-outline-danger" onclick="editWatchlist('{{product.id}}')">Remove from
+            watchlist</button>
+        {% else %}
+        <button class="btn btn-outline-secondary" onclick="editWatchlist('{{product.id}}')">Add to
+            watchlist</button>
+        {% endif %}
+        {% endif %}
+    </ul>
+</div>
+
+
+<script>
+    function editWatchlist(product_id) {
+        // sending PUT request to /watchlist
+        fetch('/watchlist/' + product_id, {
+            method: 'PUT'
+        }).then(() => {
+            document.location.reload()
+        })
+    }
+
+    function addToCart() {
+        // sending POST request to server
+        quantity = document.getElementById('quantity').value
+        fetch("{% url 'add_to_cart' product.id %}", {
+            method: 'POST',
+            body: JSON.stringify({ quantity })
+        })
+    }
+</script>
+{% endblock %}
