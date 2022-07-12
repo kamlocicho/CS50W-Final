@@ -1,5 +1,5 @@
 ## Distinctiveness and Complexity
-The project is an ordinary e-commerce store. Among other projects, it stands out with the implementation of the basket, and also uses the [ImageField](https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.ImageField) allowing you to transfer files from frontend to the backend layer, store them in a files folder and finally display on pages. Project is using bootstrap as a CSS framework.
+The project is an ordinary e-commerce store. Among other projects, it stands out with the implementation of the basket, and usage of the [ImageField](https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.ImageField) allowing you to transfer files from frontend to the backend layer, store them in a files directory and finally display on pages. Project is using bootstrap as a CSS framework. Moreover, I implemented authentication system and ability to add items to a watchlist. Whole project contains 4 models and 6 views (all described below).
 
 ## How to run application
 `pip install -r requirements.txt`
